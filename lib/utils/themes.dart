@@ -1,0 +1,1 @@
+//colors (light mode and dark mode, might just ban light mode)

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:saturn/utils/studentinfo.dart';
+
 
 class CourseListPage extends StatefulWidget {
-  final String student;
   
-  const CourseListPage({Key? key, required this.student}) : super(key: key);
+  const CourseListPage({Key? key}) : super(key: key);
   /*
   final Student student;
     //TODO implement object stuff
@@ -17,7 +18,7 @@ class _CourseListPageState extends State<CourseListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('sus')
+        child: Text(StudentInfo.studentinformation1)
       ),
     );
   }
