@@ -1,11 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:saturn/models/student.dart';
-import 'package:saturn/utils/studentinfo.dart';
 import 'courselistpage.dart';
 import 'utils/request.dart';
+import 'package:saturn/utils/sizes.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +28,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  StudentInfo studentinfo = StudentInfo();
   String _osis = '';
   String _password = '';
   // TODO make sus encryption method
@@ -38,84 +37,93 @@ class _LoginPageState extends State<LoginPage> {
 
   var requestClient = new RequestBuilder();
   
-  String student = '';
   // TODO implement Student class
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    width: 200,
-                    height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset("assets/saturnlogo.png")),
-              ),
-            ),
-            Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                controller: osisCon,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'OSIS',
-                    hintText: 'Your 9-digit OSIS'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                obscureText: true,
-                controller: passwordCon,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter Jupiter password'),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: ()=> exit(0),
-              child: Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-            ),
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: ElevatedButton(
-                onPressed: () async {
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (_) => HomePage()));
-                  _osis = osisCon.text;
-                  _password = passwordCon.text;
-                  // TODO encrypt password
-                  StudentInfo.studentinformation1 = await requestClient.makeRequest(id: _osis, password: _password, school: 'Bronx High School of Science', city: 'New York City', state: 'us_ny');
-                  
-                  setState(() {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => CourseListPage()));
-                  });
-                },
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            width: 500,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 60.0),
+                  child: Center(
+                    child: Container(
+                        width: 200,
+                        height: 150,
+                        /*decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(50.0)),*/
+                        child: Image.asset("assets/saturnlogo.png")),
+                  ),
                 ),
-              ),
+                Padding(
+                  //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: TextField(
+                    controller: osisCon,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'OSIS',
+                        hintText: 'Your 9-digit OSIS'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  //padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: TextField(
+                    obscureText: true,
+                    controller: passwordCon,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                        hintText: 'Enter Jupiter password'),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: ()=> exit(0),
+                  child: Text(
+                    'Forgot Password',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      _osis = osisCon.text;
+                      _password = passwordCon.text;
+
+                      String json = await requestClient.makeRequest(
+                        id: _osis, password: _password, 
+                        school: 'Bronx High School of Science', 
+                        city: 'New York City', state: 'us_ny'
+                      );
+
+                      student = Student.fromJson(jsonDecode(json));
+                      
+                      setState(() {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => CourseListPage()));
+                      });
+                    },
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

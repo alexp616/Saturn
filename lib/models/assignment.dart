@@ -7,4 +7,15 @@ class Assignment {
   bool graded;
 
   Assignment(this.due, this.name, this.score, this.points, this.category, this.graded);
+
+  factory Assignment.fromJson(dynamic json) {
+    return Assignment(
+      json['due'] as String,
+      json['name'] as String,
+      json['score'] as num?,
+      json['points'] as num,
+      json['category'] as String,
+      json['graded'] as bool
+    );
+  }
 }

@@ -6,4 +6,20 @@ class Student {
   List<Course> courses;
 
   Student(this.name, this.gpa, this.courses);
+
+  factory Student.fromJson(dynamic json) {
+    List<Course> jsonCourses = [];
+
+    for (dynamic item in json['courses']) {
+      jsonCourses.add(Course.fromJson(item));
+    }
+
+    return Student(
+      json['name'] as String,
+      json['gpa'] as num,
+      jsonCourses,
+    );                      
+  }
 }
+
+Student? student;
