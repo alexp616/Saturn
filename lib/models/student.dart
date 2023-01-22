@@ -2,7 +2,7 @@ import 'package:saturn/models/course.dart';
 
 class Student {
   String name;
-  num gpa;
+  num? gpa;
   List<Course> courses;
 
   Student(this.name, this.gpa, this.courses);
@@ -16,7 +16,7 @@ class Student {
 
     return Student(
       json['name'] as String,
-      json['gpa'] as num,
+      json['gpa'] as num?,
       jsonCourses,
     );                      
   }

@@ -18,4 +18,9 @@ class Assignment {
       json['graded'] as bool
     );
   }
+
+  //TODO change this i think
+  String toString() {
+    return name;
+  }
 }

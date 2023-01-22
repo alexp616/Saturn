@@ -1,5 +1,6 @@
 import 'package:saturn/models/assignment.dart';
 import 'package:saturn/models/category.dart';
+import 'dart:math';
 
 class Course {
   String name;
@@ -32,4 +33,17 @@ class Course {
       jsonAssignments
     );
   }
+
+  Assignment? getLatestExam() {
+
+    List<num> categoryWeights = [for (Category c in categories) c.weight];
+    Category greatestCategory = categories[categoryWeights.indexOf(categoryWeights.reduce(max))];
+    for (Assignment a in assignments) {
+      if (a.category == greatestCategory.name) {
+        return a;
+      }
+    }
+    return null;
+  }
 }
+

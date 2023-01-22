@@ -11,7 +11,8 @@ class RequestBuilder {
       required String state
     }) async {
 
-    var url = Uri.http('localhost:3000', '/student');
+    var url = Uri.http('45.77.108.113', '/student');
+    // var url = Uri.http('localhost:3000', '/student');
     var response = await http.post(url, body: {
       "id": id,
       "password": password,
