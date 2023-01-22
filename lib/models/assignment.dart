@@ -19,8 +19,10 @@ class Assignment {
     );
   }
 
-  //TODO change this i think
   String toString() {
-    return name;
+    if (score == null) {
+      return '$name: Not Graded';
+    }
+    return '$name: $score / $points';
   }
 }

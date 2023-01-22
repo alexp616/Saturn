@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saturn/courselistpage.dart';
 import 'package:saturn/models/assignment.dart';
 import 'package:saturn/models/course.dart';
@@ -10,7 +11,13 @@ import 'package:saturn/utils/sizes.dart';
 
 class CoursePage extends StatefulWidget {
   final Course course;
-  const CoursePage({Key? key, required this.course}) : super(key: key);
+  final FlutterSecureStorage storage;
+  
+  const CoursePage({
+    Key? key,
+    required this.course,
+    required this.storage
+  }) : super(key: key);
 
   @override
   State<CoursePage> createState() => _CoursePageState();
@@ -30,6 +37,8 @@ class _CoursePageState extends State<CoursePage> {
           centerTitle: true,
           actions: [
             PopupMenuButton(
+              icon: Icon(Icons.menu),
+              color: Colors.lightBlue,
               itemBuilder: (context) {
                 return [
                   const PopupMenuItem<String> (
@@ -40,7 +49,7 @@ class _CoursePageState extends State<CoursePage> {
               },
               onSelected: (value) {
                 if (value == 'logout') {
-                  logout(context);
+                  logout(context, widget.storage);
                 }
               },
             )

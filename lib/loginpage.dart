@@ -2,15 +2,21 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saturn/models/student.dart';
 import 'package:saturn/utils/storage.dart';
 import 'package:saturn/utils/themes.dart';
-import 'courselistpage.dart';
-import 'utils/request.dart';
+import 'package:saturn/courselistpage.dart';
+import 'package:saturn/utils/request.dart';
 import 'package:saturn/utils/sizes.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final FlutterSecureStorage storage;
+  
+  const LoginPage({
+    Key? key, 
+    required this.storage
+  }) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -128,10 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                         
                         if (student!.name != "Incorrect credentials") {
                           setState(() {
-                            storage.write(key: 'osis', value: _osis);
-                            storage.write(key: 'password', value: _password);
-                            storage.write(key: 'rememberMe', value: rememberMe.toString());
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => const CourseListPage()));
+                            widget.storage.write(key: 'osis', value: _osis);
+                            widget.storage.write(key: 'password', value: _password);
+                            widget.storage.write(key: 'rememberMe', value: rememberMe.toString());
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => CourseListPage(storage: widget.storage)));
                           });
                         }
                         else {
