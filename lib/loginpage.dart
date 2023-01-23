@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saturn/models/student.dart';
-import 'package:saturn/utils/storage.dart';
 import 'package:saturn/utils/themes.dart';
 import 'package:saturn/courselistpage.dart';
 import 'package:saturn/utils/request.dart';
@@ -36,20 +34,25 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+
+    print(screenWidth);
+    print(screenHeight);
+
     return Scaffold(
       backgroundColor: Darkmode.background,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            width: 500,
+            width: screenWidth*1.28, // 500,
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
+                  padding: EdgeInsets.only(top: .01*screenWidth), // 30
                   child: Center(
                     child: Container(
-                        width: 200,
-                        height: 150,
+                        width: .51*screenWidth,
+                        height: .38*screenWidth,
                         /*decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.circular(50.0)),*/
@@ -57,8 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: .038*screenWidth),
                   child: TextField(
                     controller: osisCon,
                     style: TextStyle(color: Darkmode.textColor),
@@ -77,8 +79,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 15, bottom: 20),
+                  padding: EdgeInsets.only(
+                      left: .038*screenWidth, right: .038*screenWidth, top: .038*screenWidth, bottom: .051*screenWidth),
                   child: TextField(
                     obscureText: true,
                     controller: passwordCon,
@@ -106,11 +108,11 @@ class _LoginPageState extends State<LoginPage> {
                 //   ),
                 // ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 35),
+                  padding: EdgeInsets.only(top: .089*screenWidth),
                   child: Container(
                     
-                    height: 50,
-                    width: 250,
+                    height: .13*screenWidth,
+                    width: .64*screenWidth,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Darkmode.darkBlue,

@@ -23,3 +23,7 @@ class Student {
 }
 
 Student? student;
+
+String fix(String text) {
+  return text.replaceAll('&amp;', ' & ');
+}

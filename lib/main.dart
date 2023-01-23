@@ -8,13 +8,9 @@ import 'package:saturn/utils/request.dart';
 import 'package:saturn/models/student.dart';
 
 void main() async {
-  print('main method ran 1');
-  
   WidgetsFlutterBinding.ensureInitialized();
   const storage = FlutterSecureStorage();
   final requestClient = RequestBuilder();
-
-  print('main method ran 2');
 
   bool rememberMe = (await storage.read(key: 'rememberMe')) == 'true';
   if (rememberMe) {
@@ -31,27 +27,8 @@ void main() async {
     }
   }
 
-  print(student?.name);
-
   runApp(MyApp(storage: storage, rememberMe: rememberMe));
 }
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   storage = const FlutterSecureStorage();
-
-//   var requestClient = RequestBuilder();
-//   final rememberMe = (await storage.read(key: 'rememberMe')) == 'true';
-//   if (rememberMe) {
-//     String json = await requestClient.makeRequest(
-//       id: await storage.read(key: 'osis'), password: await storage.read(key: 'password'), 
-//       school: 'Bronx High School of Science',
-//       city: 'New York City', state: 'us_ny'
-//     );
-//     student = Student.fromJson(jsonDecode(json));
-//   }
-//   runApp(MyApp(rememberMe: rememberMe));
-// }
 
 class MyApp extends StatelessWidget {
   final FlutterSecureStorage storage;
@@ -71,7 +48,6 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       home: home,
-      theme: ThemeData(fontFamily: 'Raleway')
     );
   }
 }

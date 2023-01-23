@@ -1,3 +1,5 @@
+import 'package:saturn/models/student.dart';
+
 class Category {
   String name;
   num? grade;
@@ -7,7 +9,7 @@ class Category {
 
   factory Category.fromJson(dynamic json) {
     return Category(
-      json['name'] as String,
+      fix(json['name'] as String),
       json['grade'] as num?,
       json['weight'] as num,
     );
