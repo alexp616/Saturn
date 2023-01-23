@@ -8,7 +8,7 @@ import 'package:saturn/utils/sizes.dart';
 import 'package:saturn/utils/themes.dart';
 import 'package:saturn/coursepage.dart';
 import 'package:saturn/utils/storage.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class CourseListPage extends StatefulWidget {
   final FlutterSecureStorage storage;
@@ -29,9 +29,13 @@ class _CourseListPageState extends State<CourseListPage> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
+    if (kIsWeb) {
+      screenWidth *= .5;
+    }
+
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(.13*screenWidth),
+        preferredSize: Size.fromHeight(.07*screenHeight),
         child: AppBar(
           backgroundColor: Darkmode.background,
           brightness: Brightness.dark,
@@ -120,7 +124,7 @@ class CourseWidget extends StatelessWidget {
     String grade = ' ${course.getLatestExam()?.score ?? '__'} / ${course.getLatestExam()?.points}';
     
     return SizedBox(
-      height: screenWidth*0.045,
+      height: screenHeight*0.022,
       width: 0.74*screenWidth,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -137,10 +141,10 @@ class CourseWidget extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: <Widget>[
-          SizedBox(height: screenWidth*.0035),
+          SizedBox(height: screenHeight*.0017),
           Container(
             width: screenWidth,
-            height: screenWidth * 0.23,
+            height: screenHeight * 0.11,
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0),
             ),
@@ -170,7 +174,7 @@ class CourseWidget extends StatelessWidget {
                         ]
                       ),
                       Container(
-                        height: 0.184*screenWidth,
+                        height: 0.09*screenHeight,
                         width: 0.184*screenWidth,
                         decoration: BoxDecoration(
                           color: course.getGradeColor(),

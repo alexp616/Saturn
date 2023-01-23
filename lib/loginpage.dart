@@ -7,6 +7,7 @@ import 'package:saturn/utils/themes.dart';
 import 'package:saturn/courselistpage.dart';
 import 'package:saturn/utils/request.dart';
 import 'package:saturn/utils/sizes.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoginPage extends StatefulWidget {
   final FlutterSecureStorage storage;
@@ -36,8 +37,9 @@ class _LoginPageState extends State<LoginPage> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
-    print(screenWidth);
-    print(screenHeight);
+    if (kIsWeb) {
+      screenWidth *= .5;
+    }
 
     return Scaffold(
       backgroundColor: Darkmode.background,
@@ -51,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(top: .01*screenWidth), // 30
                   child: Center(
                     child: Container(
-                        width: .51*screenWidth,
-                        height: .38*screenWidth,
+                        width: .38*screenWidth,
+                        height: .19*screenHeight,
                         /*decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.circular(50.0)),*/
@@ -111,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(top: .089*screenWidth),
                   child: Container(
                     
-                    height: .13*screenWidth,
+                    height: .064*screenHeight,
                     width: .64*screenWidth,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(

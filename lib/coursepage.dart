@@ -29,7 +29,7 @@ class _CoursePageState extends State<CoursePage> {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: PreferredSize(
-        preferredSize: Size.fromHeight(.12*screenWidth),
+        preferredSize: Size.fromHeight(.07*screenHeight),
         child: AppBar(
           backgroundColor: Darkmode.background,
           title: Text(student!.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300)),
@@ -91,35 +91,38 @@ class _CoursePageState extends State<CoursePage> {
   }
 
   Widget buildSearchBar() {
-    return Padding (
-      padding: EdgeInsets.symmetric(
-        horizontal: .038*screenWidth
-      ),
-      child: TextField(
-        style: const TextStyle(color: Darkmode.textColor),
-        decoration: InputDecoration(
-          hintText: 'Search for assignments',
-          hintStyle: TextStyle(color: Darkmode.textColor.withAlpha(175)),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: widget.course.getGradeColor()),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Darkmode.lightBlue),
-          ),
+    return SizedBox(
+      width: screenWidth,
+      child: Padding (
+        padding: EdgeInsets.symmetric(
+          horizontal: .038*screenWidth
         ),
-        onChanged: (text) {
-          setState(() => search = text.toLowerCase());
-        },
-      ),
+        child: TextField(
+          style: const TextStyle(color: Darkmode.textColor),
+          decoration: InputDecoration(
+            hintText: 'Search for assignments',
+            hintStyle: TextStyle(color: Darkmode.textColor.withAlpha(175)),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: widget.course.getGradeColor()),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Darkmode.lightBlue),
+            ),
+          ),
+          onChanged: (text) {
+            setState(() => search = text.toLowerCase());
+          },
+        ),
+      )
     );
   }
 
   Widget buildCoursePage() {
     List<Widget> widgetList = [
-      SizedBox(height: screenWidth*.0035),
+      SizedBox(height: screenHeight*.0017),
       courseHeading(),
       buildSearchBar(),
-      SizedBox(height: screenWidth*.0105),
+      SizedBox(height: screenHeight*.0028),
       buildAssignmentList()
     ];
 
@@ -136,8 +139,8 @@ class _CoursePageState extends State<CoursePage> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 0.6*screenWidth,
+          SizedBox(
+            width: .6*screenWidth,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +163,7 @@ class _CoursePageState extends State<CoursePage> {
             ),
           ),
           Container(
-            height: 0.184*screenWidth,
+            height: 0.09*screenHeight,
             width: 0.184*screenWidth,
             decoration: BoxDecoration(
               color: widget.course.getGradeColor(),
@@ -177,12 +180,12 @@ class _CoursePageState extends State<CoursePage> {
           )
         ]
       ),
-      SizedBox(height: screenWidth*0.01),
+      SizedBox(height: screenHeight*0.0049),
       Divider(
         color: Darkmode.textColor,
-        height: 0.03*screenWidth
+        height: 0.015*screenHeight
       ),
-      SizedBox(height: screenWidth*0.01),
+      SizedBox(height: screenHeight*0.0049),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const <Widget>[
@@ -190,7 +193,7 @@ class _CoursePageState extends State<CoursePage> {
           Text('Weight', style: TextStyle(color: Darkmode.textColor, fontSize: 18))
         ]
       ),
-      SizedBox(height: screenWidth*0.01),
+      SizedBox(height: screenHeight*0.0049),
     ];
 
     for (Category c in widget.course.categories) {
@@ -229,6 +232,7 @@ class _CoursePageState extends State<CoursePage> {
         )
       );
     }
+    
     return Container(
       width: screenWidth,
       decoration: BoxDecoration(
@@ -266,10 +270,10 @@ class _CoursePageState extends State<CoursePage> {
   Widget assignmentWidget(Assignment assignment) {
     return Column(
       children: [
-        SizedBox(height: screenWidth*.0035),
+        SizedBox(height: screenHeight*.0017),
         Container(
           width: screenWidth,
-          height: screenWidth * 0.23,
+          height: .11*screenHeight,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0),
           ),
@@ -294,7 +298,7 @@ class _CoursePageState extends State<CoursePage> {
                           child: Text(assignment.name, style: const TextStyle(color: Darkmode.textColor, fontSize: 20)),
                         ),
                         Text(
-                          (assignment.due != null) ? '${assignment.category}, ${assignment.due}' : assignment.category,
+                          (assignment.due != '') ? '${assignment.category}, ${assignment.due}' : assignment.category,
                           style: const TextStyle(
                             color: Darkmode.textColor,
                             fontSize: 14,
@@ -312,7 +316,7 @@ class _CoursePageState extends State<CoursePage> {
                     color: assignment.getGradeColor(),
                     elevation: 4,
                     child: SizedBox(
-                      height: 0.184*screenWidth,
+                      height: 0.09*screenHeight,
                       width: 0.184*screenWidth,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

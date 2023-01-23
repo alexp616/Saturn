@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
       LoginPage(storage: storage);
     
     return MaterialApp(
+      title: 'Saturn',
       home: home,
     );
   }
